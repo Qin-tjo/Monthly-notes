@@ -19,7 +19,7 @@
   <meta name="description" content="A founder's monthly notebook. Twelve plates, one year. Private by default.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap">
   <style>
     :root {
       --bg: #ffffff;
@@ -30,6 +30,7 @@
       --paper: #f6f4ef;
       --brick: #b84838;
       --serif: 'Fraunces', 'EB Garamond', Georgia, serif;
+      --serif-writing: 'Lora', 'EB Garamond', Georgia, serif;
       --sans: 'Inter', system-ui, -apple-system, sans-serif;
       --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -141,7 +142,7 @@
     }
     .plate-title em { font-style: italic; }
     .plate-teaser {
-      font-family: var(--serif);
+      font-family: var(--serif-writing);
       font-size: 14px;
       font-style: italic;
       margin-top: 10px;
@@ -241,8 +242,8 @@
       min-width: 22px;
     }
     .prompt-input {
-      font-family: var(--serif); font-size: 19px; line-height: 1.5;
-      letter-spacing: -0.005em; color: var(--ink);
+      font-family: var(--serif-writing); font-size: 19px; line-height: 1.55;
+      letter-spacing: 0; color: var(--ink);
       width: 100%; border: none; outline: none; padding: 0;
       resize: none; background: transparent; overflow: hidden;
       transition: box-shadow 160ms var(--ease);
