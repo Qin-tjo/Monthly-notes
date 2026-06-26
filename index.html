@@ -385,6 +385,8 @@
       background: var(--paper); padding: 40px;
       display: flex; align-items: center; justify-content: center;
       border-radius: 0;
+      min-width: 0;        /* allow the grid track to shrink below content */
+      overflow: hidden;    /* the scaled poster never overflows the stage */
     }
     /* Fixed pixel dimensions = predictable PDF/PNG export.
        960×640 ≈ 3:2 landscape, scales cleanly to A2 landscape (594×420mm).
@@ -558,26 +560,75 @@
     }
 
     /* ── RESPONSIVE ───────────────────────────────────────────── */
+    /* ── TABLET / NARROW DESKTOP ──────────────────────────────── */
     @media (max-width: 900px) {
       header.app { padding: 14px 18px; }
-      nav.app { gap: 14px; font-size: 10px; }
-      .settings-btn { margin-left: 6px; }
+      nav.app { gap: 14px; font-size: 11px; }
+      .settings-btn { margin-left: 8px; font-size: 17px; }
       .begin-wrap, .plate-wrap, .atlas-wrap, .poster-wrap { padding: 40px 22px; grid-template-columns: 1fr; gap: 36px; max-width: 100%; }
-      .plate-grid { grid-template-columns: 1fr; gap: 32px; }
-      .plate-left { max-width: 340px; margin: 0 auto; width: 100%; }
+      .plate-grid { grid-template-columns: 1fr; gap: 28px; }
+      .plate-left { position: static; max-width: 360px; margin: 0 auto; width: 100%; }
       .begin-hero { font-size: 44px; }
       .plate-title { font-size: 38px; }
       .atlas-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .drawer { width: 100vw; padding: 22px 22px 64px; }
       .prompt-input { font-size: 19px; }
+      /* Poster: stack the controls below the sheet, narrow the sheet. */
+      .poster-stage { padding: 24px; }
+      .poster-controls { max-width: 100%; margin: 0 auto; }
     }
+    /* ── PHONE ────────────────────────────────────────────────── */
     @media (max-width: 540px) {
-      header.app { padding: 12px 16px; }
-      .logo { font-size: 11px; letter-spacing: 0.28em; }
-      nav.app { gap: 12px; font-size: 9px; letter-spacing: 0.06em; }
+      header.app { padding: 12px 14px; }
+      .logo { font-size: 11px; letter-spacing: 0.26em; }
+      nav.app { gap: 14px; font-size: 11px; letter-spacing: 0.04em; }
+      .settings-btn { margin-left: 4px; font-size: 16px; padding: 4px 4px; }
+      .begin-wrap { padding: 36px 18px 56px; gap: 28px; }
       .begin-hero { font-size: 38px; }
-      .atlas-grid { grid-template-columns: 1fr 1fr; }
-      .poster-wrap { padding: 28px 18px; }
+      .begin-lead { font-size: 16px; line-height: 1.55; }
+      .begin-cta { flex-direction: column; gap: 10px; }
+      .begin-cta .btn-primary, .begin-cta .btn-outline { width: 100%; padding: 14px 16px; }
+      /* Begin fanned trio doesn't fit at this width — collapse to a single
+         centred plate so the page doesn't look broken. */
+      .begin-preview { min-height: 360px; }
+      .begin-preview .plate { width: 220px; }
+      .begin-preview .plate.p1, .begin-preview .plate.p3 { display: none; }
+      .begin-preview .plate.p2 { transform: rotate(0) translate(0,0); position: relative; }
+      /* Plate writing area */
+      .plate-wrap { padding: 28px 16px 56px; }
+      .entry-col { max-width: 100%; }
+      .entry-head { flex-direction: column; align-items: flex-start; gap: 4px; padding-bottom: 14px; }
+      .entry-head-title { font-size: 24px; }
+      .entry-head-meta { font-size: 9px; }
+      .prompt { padding-top: 18px; margin-top: 20px; }
+      .prompt-label { font-size: 13px; }
+      .prompt-input { font-size: 17px; }
+      .plate-save { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 28px; padding-top: 20px; }
+      .plate-save .btn-primary { width: 100%; }
+      .plate-save-stamp { font-size: 12px; text-align: center; }
+      .plate-footer { flex-direction: column; gap: 6px; text-align: center; padding-top: 16px; margin-top: 32px; }
+      .swatch-row { grid-template-columns: repeat(6, 1fr); }
+      .spine-card { font-size: 13px; }
+      /* Atlas */
+      .atlas-wrap { padding: 28px 16px; }
+      .atlas-title { font-size: 36px; }
+      .atlas-sub { font-size: 13px; margin-top: 4px; }
+      .atlas-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .atlas-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .atlas-cell .plate-title-sm { font-size: 22px; }
+      .atlas-cell.empty .plate-title-sm { font-size: 20px; }
+      .atlas-cell .plate-teaser-sm { font-size: 11px; }
+      .atlas-cell .plate-meta-top { font-size: 8px; letter-spacing: 0.22em; }
+      .atlas-cell .unsealed { font-size: 9px; letter-spacing: 0.2em; }
+      .atlas-actions { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .atlas-actions-right { flex-wrap: wrap; gap: 16px; }
+      /* Poster */
+      .poster-wrap { padding: 24px 14px 40px; gap: 24px; }
+      .poster-stage { padding: 16px; }
+      .poster-controls h2 { font-size: 20px; }
+      .poster-controls p { font-size: 13px; }
+      .poster-spec-row { font-size: 11px; padding: 10px 0; }
+      .poster-exports { margin-top: 18px; }
     }
 
     /* ── SETTINGS BUTTON & DRAWER ─────────────────────────────── */
