@@ -1,0 +1,20 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Claude Code / agent dev files
+.claude/
+
+# Local exports / artifacts the app produces
+meridian-*.json
+meridian-poster-*.png
+meridian-poster-*.pdf
+meridian-reminder.ics
+
+# Dependency caches (none expected, but defensive)
+node_modules/
+.cache/

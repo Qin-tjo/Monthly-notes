@@ -1,0 +1,2107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' https://fonts.gstatic.com data:;
+    img-src 'self' data: blob:;
+    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    connect-src 'self' https://cdn.jsdelivr.net;
+    frame-ancestors 'none';
+    form-action 'none';
+    base-uri 'self';
+  ">
+  <meta name="referrer" content="no-referrer">
+  <title>Meridian — a private season in twelve plates</title>
+  <meta name="description" content="A founder's monthly notebook. Twelve plates, one year. Private by default.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500&display=swap">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #0a0a0a;
+      --muted: #888;
+      --hairline: #ececec;
+      --empty: #fafafa;
+      --paper: #f6f4ef;
+      --brick: #b84838;
+      --serif: 'Fraunces', 'EB Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { min-height: 100vh; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, [contenteditable]:focus-visible {
+      outline: none; box-shadow: 0 0 0 1px var(--brick);
+    }
+
+    /* ── HEADER ───────────────────────────────────────────────── */
+    header.app {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--bg);
+      padding: 18px 36px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 0.5px solid var(--hairline);
+    }
+    .logo { font-family: var(--serif); font-size: 16px; letter-spacing: 0.36em; color: var(--ink); text-decoration: none; }
+    nav.app { display: flex; gap: 32px; font-size: 13px; color: var(--muted); letter-spacing: 0.02em; position: relative; }
+    nav.app a { color: var(--muted); text-decoration: none; padding: 4px 0; transition: color 160ms var(--ease); position: relative; }
+    nav.app a:hover { color: var(--ink); }
+    nav.app a.active { color: var(--ink); }
+    nav.app a.active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+      height: 1px; background: var(--ink);
+    }
+
+    /* ── PAGES ────────────────────────────────────────────────── */
+    main { position: relative; }
+    .page {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .page.active {
+      display: block;
+      animation: pageIn 280ms var(--ease-out-expo) forwards;
+    }
+    @keyframes pageIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* word-stagger for headlines */
+    .stagger > span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: wordIn 320ms var(--ease-out-expo) forwards;
+    }
+    @keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── BEGIN PAGE ───────────────────────────────────────────── */
+    .begin-wrap { padding: 80px 80px 96px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: center; max-width: 1240px; margin: 0 auto; }
+    .begin-tag { font-size: 10px; letter-spacing: 0.36em; color: var(--brick); text-transform: uppercase; font-weight: 500; }
+    .begin-hero { font-family: var(--serif); font-size: 72px; line-height: 0.92; letter-spacing: -0.03em; margin: 22px 0 0; font-weight: 400; }
+    .begin-hero em { font-style: italic; color: var(--muted); }
+    .begin-lead { font-family: var(--serif); font-size: 19px; line-height: 1.6; color: #3a3a3a; margin: 32px 0 0; max-width: 460px; }
+    .begin-cta { margin-top: 48px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary, .btn-outline {
+      padding: 14px 22px; border: none; font-family: var(--sans); font-size: 11px;
+      letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer;
+      transition: transform 100ms var(--ease), background 160ms var(--ease), color 160ms var(--ease);
+      border-radius: 0; white-space: nowrap;
+    }
+    .btn-primary { background: var(--brick); color: #fff; font-weight: 500; }
+    .btn-primary:hover { background: #a03e30; }
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-outline { background: transparent; color: var(--ink); border: 0.5px solid var(--ink); }
+    .btn-outline:hover { background: var(--ink); color: #fff; }
+    .btn-outline:active { transform: scale(0.97); }
+    .begin-note { margin-top: 32px; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; max-width: 460px; line-height: 1.6; }
+    .begin-preview { display: flex; justify-content: center; align-items: center; position: relative; min-height: 460px; }
+    .begin-preview .plate { width: 240px; position: absolute; transition: transform 600ms var(--ease-out-expo); }
+    .begin-preview .plate.p1 { transform: rotate(-7deg) translate(-72px, 18px); z-index: 1; box-shadow: -8px 14px 28px rgba(0,0,0,0.10); }
+    .begin-preview .plate.p2 { transform: rotate(0deg)  translate(0, -8px);     z-index: 3; box-shadow: 0 18px 36px rgba(0,0,0,0.14); }
+    .begin-preview .plate.p3 { transform: rotate(7deg)  translate(72px, 18px);  z-index: 2; box-shadow: 8px 14px 28px rgba(0,0,0,0.10); }
+    .begin-preview:hover .plate.p1 { transform: rotate(-10deg) translate(-86px, 22px); }
+    .begin-preview:hover .plate.p3 { transform: rotate(10deg)  translate(86px, 22px); }
+
+    /* ── PLATE COMPONENT ──────────────────────────────────────── */
+    .plate {
+      aspect-ratio: 0.7;
+      padding: 22px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      position: relative;
+      transition: background-color 220ms var(--ease);
+      overflow: hidden;
+    }
+    .plate-meta-top, .plate-meta-bot {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--serif);
+      font-size: 9px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .plate-meta-bot {
+      letter-spacing: 0.28em;
+      opacity: 0.7;
+    }
+    .plate-title {
+      font-family: var(--serif);
+      font-size: 54px;
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+      font-weight: 400;
+    }
+    .plate-title em { font-style: italic; }
+    .plate-teaser {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 10px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    /* seal pulse */
+    .plate.sealing { animation: sealStamp 180ms var(--ease) both; }
+    @keyframes sealStamp { 50% { transform: scale(0.97); } 100% { transform: scale(1); } }
+    .plate .seal-ring {
+      position: absolute; inset: 50% auto auto 50%;
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1px solid currentColor;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0; pointer-events: none;
+    }
+    .plate.sealing .seal-ring {
+      animation: sealRing 480ms var(--ease-out-expo) forwards;
+    }
+    @keyframes sealRing {
+      0%   { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(14); }
+    }
+
+    /* ── PLATE PAGE ───────────────────────────────────────────── */
+    .plate-wrap { padding: 56px 72px 96px; max-width: 1240px; margin: 0 auto; }
+    .plate-grid { display: grid; grid-template-columns: 260px 1fr; gap: 96px; align-items: start; }
+    .plate-left { position: sticky; top: 84px; }
+    .plate-hero { transform: scale(0.97); opacity: 0; animation: plateIn 400ms var(--ease-out-expo) 100ms forwards; }
+    @keyframes plateIn { to { opacity: 1; transform: scale(1); } }
+
+    .spine-card {
+      margin-top: 24px; padding: 16px 0 0;
+      background: transparent;
+      border-top: 0.5px solid var(--hairline);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .spine-head { display: none; }
+    .spine-row {
+      display: contents;
+      font-family: var(--serif); font-size: 15px;
+    }
+    .spine-row .spine-plate { color: var(--ink); }
+    .spine-row .spine-hue {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--muted); font-style: italic;
+    }
+    .spine-row .spine-hue-dot {
+      display: inline-block; width: 12px; height: 12px;
+    }
+    .swatch-row {
+      display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px;
+      margin-top: 16px; padding: 0;
+      background: transparent;
+    }
+    .swatch {
+      width: 100%; aspect-ratio: 1;
+      cursor: pointer;
+      transition: transform 140ms var(--ease-out-expo), box-shadow 140ms var(--ease);
+      position: relative;
+    }
+    .swatch:hover { transform: scale(1.18); box-shadow: 0 3px 8px rgba(0,0,0,0.12); z-index: 2; }
+    .swatch.selected { outline: 1.5px solid var(--ink); outline-offset: 2px; z-index: 1; }
+    .swatch-label {
+      grid-column: 1 / -1;
+      font-size: 12px; letter-spacing: 0.04em; color: var(--muted);
+      margin-bottom: 6px; font-family: var(--serif); font-style: italic;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .swatch-label .swatch-hover {
+      font-style: normal; letter-spacing: 0.04em; color: var(--ink);
+      transition: opacity 140ms var(--ease); min-height: 14px;
+    }
+
+    .entry-col { max-width: 620px; }
+    .entry-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding-bottom: 18px; border-bottom: 0.5px solid var(--hairline);
+      margin-bottom: 8px;
+    }
+    .entry-head-title { font-family: var(--serif); font-size: 28px; letter-spacing: -0.02em; font-weight: 400; }
+    .entry-head-title em { font-style: italic; color: var(--muted); }
+    .entry-head-meta { font-size: 10px; letter-spacing: 0.28em; color: var(--muted); text-transform: uppercase; font-family: var(--sans); }
+    .entry-tag { display: none; }
+    .prompt { margin-top: 32px; padding-top: 24px; border-top: 0.5px solid var(--hairline); }
+    .prompt:first-of-type { margin-top: 28px; padding-top: 0; border-top: none; }
+    .prompt-label {
+      font-size: 14px; letter-spacing: 0; color: var(--brick);
+      text-transform: none; margin-bottom: 12px; font-weight: 400;
+      font-family: var(--serif); font-style: italic;
+      display: flex; align-items: baseline; gap: 12px;
+    }
+    .prompt-label .prompt-num {
+      font-style: normal; letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 11px; opacity: 0.75; font-family: var(--sans); font-weight: 500;
+      min-width: 22px;
+    }
+    .prompt-input {
+      font-family: var(--serif); font-size: 19px; line-height: 1.5;
+      letter-spacing: -0.005em; color: var(--ink);
+      width: 100%; border: none; outline: none; padding: 0;
+      resize: none; background: transparent; overflow: hidden;
+      transition: box-shadow 160ms var(--ease);
+      min-height: 30px;
+    }
+    .prompt-input::placeholder {
+      color: #d4d4d4; font-style: normal; opacity: 1;
+    }
+
+    .plate-save {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 0.5px solid var(--hairline);
+      display: flex; align-items: center; gap: 18px;
+    }
+    .plate-save .btn-primary {
+      padding: 13px 26px; font-size: 11px;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background 140ms var(--ease), transform 100ms var(--ease);
+    }
+    .plate-save .btn-primary:hover { background: #a03e30; }
+    .plate-save .btn-primary:active { transform: scale(0.97); }
+    .plate-save .btn-primary.flash {
+      background: var(--ink); animation: btnFlash 320ms var(--ease);
+    }
+    @keyframes btnFlash {
+      0%   { transform: scale(0.96); }
+      40%  { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .plate-save-stamp {
+      font-family: var(--serif); font-size: 13px; font-style: italic;
+      color: var(--muted); letter-spacing: -0.005em;
+    }
+    .plate-save-stamp em { color: var(--ink); font-style: italic; }
+    .plate-footer {
+      margin-top: 56px; padding-top: 20px;
+      border-top: 0.5px solid var(--hairline);
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 11px; letter-spacing: 0.04em; color: var(--muted);
+      font-family: var(--serif); font-style: italic;
+    }
+    .plate-footer .word-count {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-family: var(--sans); font-style: normal;
+    }
+    .prompt-input::placeholder {
+      color: #e0e0e0; font-style: normal; opacity: 1;
+    }
+
+    /* ── ATLAS PAGE ───────────────────────────────────────────── */
+    .atlas-wrap { padding: 48px 64px 64px; max-width: 1200px; margin: 0 auto; }
+    .atlas-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 36px;
+    }
+    .atlas-title { font-family: var(--serif); font-size: 42px; line-height: 1; letter-spacing: -0.025em; }
+    .atlas-sub { font-family: var(--serif); font-size: 14px; color: var(--muted); font-style: italic; margin-top: 6px; }
+    .atlas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .atlas-cell { opacity: 0; transform: translateY(8px); animation: cellIn 280ms var(--ease-out-expo) forwards; }
+    @keyframes cellIn { to { opacity: 1; transform: translateY(0); } }
+    .atlas-cell .plate {
+      cursor: pointer;
+      transition: transform 160ms var(--ease), box-shadow 160ms var(--ease);
+    }
+    .atlas-cell .plate:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+    .atlas-cell.current .plate { outline: 1px solid var(--ink); outline-offset: 4px; }
+    .atlas-cell.empty .plate {
+      background: #f4f0e8;
+      border: 0.5px solid #e4ddc8;
+      color: #8a8475;
+    }
+    .atlas-cell.empty .plate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      background: #f0ebde;
+    }
+    .atlas-cell.empty .plate:hover .unsealed { color: var(--ink); }
+    .atlas-cell .plate-title-sm { font-family: var(--serif); font-size: 32px; line-height: 0.9; letter-spacing: -0.02em; }
+    .atlas-cell .plate-title-sm em { font-style: italic; }
+    .atlas-cell.empty .plate-title-sm {
+      color: #8a8475; font-style: italic; font-size: 28px;
+    }
+    .atlas-cell.empty .plate.current .plate-title-sm {
+      color: var(--ink); font-style: normal;
+    }
+    .atlas-cell.empty .plate.current { background: #fbf6e8; border-color: #d4c8a8; }
+    .atlas-cell .plate-teaser-sm {
+      font-family: var(--serif); font-size: 12px; font-style: italic;
+      margin-top: 10px; opacity: 0.92; line-height: 1.4;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .atlas-cell .unsealed {
+      font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      color: #8a8475; font-family: var(--sans);
+      transition: color 140ms var(--ease);
+    }
+    .atlas-cell .plate-meta-top {
+      font-size: 10px; letter-spacing: 0.26em;
+    }
+    .atlas-cell .hue-caption {
+      margin-top: 8px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 9px; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .atlas-cell.current .hue-caption { color: var(--ink); font-weight: 500; }
+    .atlas-cell .hue-dot { width: 8px; height: 8px; }
+
+    .atlas-actions {
+      margin-top: 48px; padding-top: 18px;
+      border-top: 0.5px solid var(--hairline);
+      display: flex; justify-content: space-between; align-items: center; gap: 14px;
+      flex-wrap: wrap;
+    }
+    .link-btn {
+      background: none; border: none; padding: 0;
+      font-family: var(--sans); font-size: 11px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted); cursor: pointer;
+      transition: color 140ms var(--ease);
+    }
+    .link-btn:hover { color: var(--ink); }
+    .atlas-actions-right { display: flex; gap: 24px; }
+
+    .export-nudge {
+      margin-bottom: 28px; padding: 14px 18px;
+      background: var(--paper);
+      border-top: 0.5px solid var(--hairline);
+      border-bottom: 0.5px solid var(--hairline);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--ink);
+    }
+    .export-nudge-actions { display: flex; gap: 16px; }
+
+    /* ── POSTER PAGE ──────────────────────────────────────────── */
+    .poster-wrap { padding: 48px 56px 64px; max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; align-items: start; }
+    .poster-stage {
+      background: var(--paper); padding: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 0;
+    }
+    /* Fixed pixel dimensions = predictable PDF/PNG export.
+       960×640 ≈ 3:2 landscape, scales cleanly to A2 landscape (594×420mm).
+       html-to-image captures these exact dimensions. */
+    .poster {
+      background: #fffdf8;
+      width: 960px; height: 800px;
+      flex-shrink: 0;
+      padding: 30px 40px 26px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 8px 18px rgba(0,0,0,0.05);
+      border: 0.5px solid var(--hairline);
+      transform-origin: top left;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+      opacity: 0;
+      animation: posterIn 440ms var(--ease-out-expo) 100ms forwards;
+    }
+    @keyframes posterIn { to { opacity: 1; } }
+    /* Responsive scale-to-fit so the 960px-wide poster always shows
+       within whatever stage width we have, without resizing the
+       underlying element (export stays at 960×640). */
+    #poster-scaler {
+      display: block;
+      width: 100%; overflow: hidden;
+      position: relative;
+    }
+    .poster-head {
+      text-align: center; margin-bottom: 14px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .poster-title {
+      font-family: var(--serif); font-size: 28px; line-height: 1;
+      letter-spacing: -0.025em; font-weight: 400;
+      display: inline-flex; gap: 12px; align-items: baseline;
+      white-space: nowrap;
+    }
+    .poster-title-brand, .poster-title-sub { white-space: nowrap; }
+    .poster-title em { font-style: italic; color: var(--muted); }
+    .poster-title [contenteditable="true"] {
+      outline: none; cursor: text;
+      padding: 0 2px;
+      border-radius: 2px;
+      transition: background 140ms var(--ease);
+    }
+    .poster-title [contenteditable="true"]:hover {
+      background: rgba(184, 72, 56, 0.06);
+    }
+    .poster-title [contenteditable="true"]:focus {
+      background: rgba(184, 72, 56, 0.10);
+    }
+    .poster-title [contenteditable="true"]:empty::before {
+      content: attr(data-placeholder);
+      opacity: 0.4;
+    }
+    .poster-title-sub { font-style: italic; color: var(--muted); }
+    .poster-rule { height: 0.5px; width: 36px; background: var(--brick); margin: 12px auto 10px; }
+    .poster-sub {
+      font-family: var(--serif); font-size: 12px; letter-spacing: 0.04em;
+      color: var(--muted); font-style: italic;
+      white-space: nowrap;
+    }
+    /* Portrait cells (aspect 0.82) centered in the available room.
+       Fixed sizes guarantee no overflow and a footer that's always inside. */
+    .poster-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 165px);
+      grid-template-rows: repeat(3, 200px);
+      gap: 14px;
+      justify-content: center;
+      align-content: center;
+    }
+    .poster-cell {
+      padding: 12px 12px 10px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden;
+      min-width: 0; min-height: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+      border-radius: 0;
+    }
+    .poster-cell-meta-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--serif); font-size: 8px; letter-spacing: 0.28em;
+      text-transform: uppercase; opacity: 0.85;
+    }
+    .poster-cell-body { margin: 14px 0 6px; }
+    .poster-cell-name { font-family: var(--serif); font-size: 28px; line-height: 0.92; letter-spacing: -0.018em; }
+    .poster-cell-name em { font-style: italic; }
+    .poster-cell-line {
+      font-family: var(--serif); font-size: 12px; line-height: 1.4;
+      font-style: italic; margin-top: 10px; opacity: 0.92;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .poster-cell-foot {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--serif); font-size: 8px; letter-spacing: 0.22em;
+      text-transform: uppercase; opacity: 0.78;
+      border-top: 0.5px solid currentColor;
+      padding-top: 7px; margin-top: 8px;
+    }
+    .poster-cell-foot .dot {
+      display: inline-block; width: 7px; height: 7px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .poster-cell.empty {
+      background: #f4f0e8;
+      border: 0.5px solid #e4ddc8;
+      color: #8a8475;
+    }
+    .poster-cell.empty .poster-cell-name { font-style: italic; }
+    .poster-cell.empty .poster-cell-foot { opacity: 0.6; border-top-color: #c8c0a8; }
+    .poster-foot {
+      margin-top: 14px; padding-top: 12px;
+      border-top: 0.5px solid var(--hairline);
+      display: flex; justify-content: center;
+      font-family: var(--serif); font-size: 10px; letter-spacing: 0.34em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .poster-foot .dot {
+      display: inline-block; width: 4px; margin: 0 14px;
+      color: var(--brick);
+    }
+
+    .poster-controls { max-width: 280px; }
+    .poster-controls h2 { font-family: var(--serif); font-size: 22px; line-height: 1.1; letter-spacing: -0.018em; margin: 0; font-weight: 400; }
+    .poster-controls h2 em { font-style: italic; color: var(--muted); }
+    .poster-controls p { font-family: var(--serif); font-size: 14px; line-height: 1.55; color: #3a3a3a; margin: 14px 0 0; }
+    .poster-spec { margin-top: 28px; }
+    .poster-spec-row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 0.5px solid var(--hairline); font-size: 12px; gap: 12px; }
+    .poster-spec-row:last-child { border-bottom: 0.5px solid var(--hairline); }
+    .poster-spec-row span:first-child { color: var(--muted); letter-spacing: 0.04em; flex-shrink: 0; }
+    .poster-spec-row span:last-child { font-family: var(--serif); font-style: italic; text-align: right; }
+    .poster-exports { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .poster-exports .btn-primary, .poster-exports .btn-outline { padding: 13px 18px; font-size: 11px; width: 100%; }
+
+    /* ── CURSOR FOLLOWER ──────────────────────────────────────── */
+    #cursor {
+      position: fixed; top: 0; left: 0;
+      width: 20px; height: 20px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: none; z-index: 1000;
+      transition: transform 280ms var(--ease-out-expo), opacity 200ms var(--ease);
+      opacity: 0;
+      mix-blend-mode: difference;
+      will-change: transform;
+    }
+    #cursor.large { transform: translate(-50%, -50%) scale(2.2); }
+    #cursor.small { transform: translate(-50%, -50%) scale(0.3); }
+
+    /* ── REDUCED MOTION ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #cursor { display: none; }
+    }
+
+    /* ── TOUCH / NO-CURSOR ────────────────────────────────────── */
+    @media (hover: none) {
+      #cursor { display: none; }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      header.app { padding: 14px 18px; }
+      nav.app { gap: 14px; font-size: 10px; }
+      .settings-btn { margin-left: 6px; }
+      .begin-wrap, .plate-wrap, .atlas-wrap, .poster-wrap { padding: 40px 22px; grid-template-columns: 1fr; gap: 36px; max-width: 100%; }
+      .plate-grid { grid-template-columns: 1fr; gap: 32px; }
+      .plate-left { max-width: 340px; margin: 0 auto; width: 100%; }
+      .begin-hero { font-size: 44px; }
+      .plate-title { font-size: 38px; }
+      .atlas-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .drawer { width: 100vw; padding: 22px 22px 64px; }
+      .prompt-input { font-size: 19px; }
+    }
+    @media (max-width: 540px) {
+      header.app { padding: 12px 16px; }
+      .logo { font-size: 11px; letter-spacing: 0.28em; }
+      nav.app { gap: 12px; font-size: 9px; letter-spacing: 0.06em; }
+      .begin-hero { font-size: 38px; }
+      .atlas-grid { grid-template-columns: 1fr 1fr; }
+      .poster-wrap { padding: 28px 18px; }
+    }
+
+    /* ── SETTINGS BUTTON & DRAWER ─────────────────────────────── */
+    .settings-btn {
+      background: none; border: none; padding: 4px 8px; margin-left: 18px;
+      color: var(--muted); font-size: 19px; line-height: 1;
+      transition: color 140ms var(--ease), transform 140ms var(--ease);
+    }
+    .settings-btn:hover { color: var(--ink); transform: rotate(30deg); }
+    .drawer-back {
+      position: fixed; inset: 0; background: rgba(10,10,10,0.18);
+      opacity: 0; pointer-events: none;
+      transition: opacity 220ms var(--ease);
+      z-index: 90;
+    }
+    .drawer-back.open { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 420px; max-width: 100vw;
+      background: var(--bg);
+      border-left: 0.5px solid var(--hairline);
+      padding: 28px 32px;
+      transform: translateX(100%);
+      transition: transform 320ms var(--ease-out-expo);
+      z-index: 100;
+      overflow-y: auto;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer h3 { font-family: var(--serif); font-size: 26px; letter-spacing: -0.02em; margin: 0 0 4px; font-weight: 400; }
+    .drawer h3 em { font-style: italic; color: var(--muted); }
+    .drawer-sub { font-size: 11px; letter-spacing: 0.24em; color: var(--muted); text-transform: uppercase; margin-bottom: 24px; }
+    .drawer-row { padding: 16px 0; border-top: 0.5px solid var(--hairline); }
+    .drawer-row:last-of-type { border-bottom: 0.5px solid var(--hairline); }
+    .drawer-row label { font-size: 10px; letter-spacing: 0.24em; color: var(--muted); text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .drawer-row .control { display: flex; align-items: center; gap: 12px; }
+    .drawer-row input[type="text"], .drawer-row input[type="month"], .drawer-row input[type="number"] {
+      font: inherit; font-family: var(--serif); font-size: 16px; color: var(--ink);
+      background: transparent; border: none; border-bottom: 0.5px solid var(--hairline);
+      padding: 4px 0; flex: 1; outline: none;
+    }
+    .drawer-row input:focus { border-color: var(--brick); }
+    .drawer-close {
+      position: absolute; top: 18px; right: 24px;
+      background: none; border: none; font-size: 22px; color: var(--muted); cursor: pointer;
+      transition: color 140ms var(--ease);
+    }
+    .drawer-close:hover { color: var(--ink); }
+    .drawer-danger {
+      margin-top: 28px; padding: 18px;
+      background: var(--paper); border: 0.5px solid var(--hairline);
+    }
+    .drawer-danger p { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
+    .drawer-danger button {
+      background: transparent; color: var(--brick); border: 0.5px solid var(--brick);
+      padding: 10px 16px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      transition: background 140ms var(--ease), color 140ms var(--ease);
+    }
+    .drawer-danger button:hover { background: var(--brick); color: #fff; }
+
+    /* ── TOAST ────────────────────────────────────────────────── */
+    #toast-root {
+      position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%);
+      display: flex; flex-direction: column; gap: 8px; align-items: center;
+      z-index: 200; pointer-events: none;
+    }
+    .toast {
+      background: var(--ink); color: #fff;
+      padding: 12px 20px;
+      font-family: var(--serif); font-size: 14px; font-style: italic;
+      letter-spacing: -0.005em;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+      opacity: 0; transform: translateY(12px);
+      animation: toastIn 320ms var(--ease-out-expo) forwards;
+      pointer-events: auto;
+      max-width: 420px;
+    }
+    .toast.out { animation: toastOut 240ms var(--ease) forwards; }
+    @keyframes toastIn  { to { opacity: 1; transform: translateY(0); } }
+    @keyframes toastOut { to { opacity: 0; transform: translateY(8px); } }
+
+    /* ── TEASER (now lives on the plate face) ─────────────────── */
+    .plate-teaser[contenteditable="true"] {
+      outline: none;
+      cursor: text;
+      transition: opacity 140ms var(--ease);
+    }
+    .plate-teaser[contenteditable="true"]:hover { opacity: 0.85; }
+    .plate-teaser[contenteditable="true"]:empty::before {
+      content: attr(data-placeholder);
+      opacity: 0.55;
+    }
+    .plate-teaser[contenteditable="true"]:focus { opacity: 1; }
+    .teaser-hint-inline {
+      font-size: 10px; letter-spacing: 0.04em; color: var(--muted);
+      margin-top: 6px; font-family: var(--sans); opacity: 0;
+      transition: opacity 200ms var(--ease);
+    }
+    .plate-left:hover .teaser-hint-inline { opacity: 0.7; }
+
+    /* ── SEAL & SAVE STATES ───────────────────────────────────── */
+    .save-pulse {
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brick); margin-right: 8px; vertical-align: middle;
+      opacity: 0;
+    }
+    .save-pulse.active { animation: pulse 900ms var(--ease); }
+    @keyframes pulse {
+      0%   { opacity: 0; transform: scale(0.6); }
+      40%  { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.4); }
+    }
+    .lock-badge {
+      display: inline-block; padding: 2px 8px; margin-left: 8px;
+      font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+      background: var(--ink); color: #fff; font-family: var(--sans);
+      vertical-align: middle;
+    }
+    .plate.locked .plate-meta-top::after {
+      content: "· sealed"; margin-left: 8px; font-style: italic; opacity: 0.7;
+    }
+
+    /* ── DAYS-UNTIL CAPTION ───────────────────────────────────── */
+    .days-until {
+      font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--muted);
+      margin-top: 8px; letter-spacing: 0.02em;
+    }
+    .today-badge {
+      position: absolute; top: -8px; left: 16px;
+      font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+      padding: 4px 10px; background: var(--ink); color: #fff; font-family: var(--sans);
+      font-weight: 500;
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .atlas-cell { position: relative; }
+
+    /* ── PRINT (PDF EXPORT) ───────────────────────────────────── */
+    /* Minimal fallback: if the user hits browser Print (⌘P) on the Poster page,
+       hide the chrome and print the master poster sheet. The supported export
+       path is Download · PNG. */
+    @media print {
+      html, body { background: white !important; margin: 0 !important; padding: 0 !important; }
+      .page:not([data-page="poster"]),
+      .poster-controls, .poster-stage, .poster-wrap > :not(.poster-stage),
+      header.app, #cursor, #toast-root, .drawer, .drawer-back, .settings-btn {
+        display: none !important;
+      }
+      .poster {
+        box-shadow: none !important; border: none !important;
+        transform: none !important; animation: none !important; opacity: 1 !important;
+        margin: 0 auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .poster *, .poster .dot {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      @page { margin: 16mm; size: A2 landscape; }
+    }
+    /* Neutralise editable affordances during PNG capture (html-to-image
+       observes computed styles, and hover/focus tints can persist otherwise). */
+    .poster.exporting .poster-title-brand,
+    .poster.exporting .poster-title-sub,
+    .poster.exporting .plate-teaser {
+      background: transparent !important; box-shadow: none !important;
+      outline: none !important; cursor: default !important;
+      caret-color: transparent !important;
+    }
+    .poster.exporting .poster-title-sub { font-style: italic !important; }
+  </style>
+</head>
+<body>
+
+  <header class="app">
+    <a href="#begin" class="logo" data-link>MERIDIAN</a>
+    <div style="display:flex; align-items:center;">
+      <nav class="app">
+        <a href="#begin" data-link>Begin</a>
+        <a href="#plate" data-link>Plate</a>
+        <a href="#atlas" data-link>Atlas</a>
+        <a href="#poster" data-link>Poster</a>
+      </nav>
+      <button class="settings-btn" data-action="open-settings" aria-label="Settings" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- BEGIN -->
+    <section class="page" data-page="begin">
+      <div class="begin-wrap">
+        <div>
+          <div class="begin-tag">A private season in twelve plates.</div>
+          <h1 class="begin-hero stagger" data-stagger>A season<br/><em>of one.</em></h1>
+          <p class="begin-lead">A founder's monthly notebook. Ten minutes, once a month — where you are, what changed, what you learned. By plate twelve the season completes itself.</p>
+          <div class="begin-cta">
+            <button class="btn-primary" data-action="start">Open the first plate</button>
+            <button class="btn-outline" data-action="remind">Remind me next month</button>
+          </div>
+          <div class="begin-note">Lives on your device. No accounts. Export anytime — that's your only backup.</div>
+        </div>
+        <div class="begin-preview" id="begin-preview"></div>
+      </div>
+    </section>
+
+    <!-- PLATE -->
+    <section class="page" data-page="plate">
+      <div class="plate-wrap">
+        <div class="plate-grid">
+          <div class="plate-left">
+            <div class="plate-hero" id="plate-hero"></div>
+            <div class="spine-card" id="spine-row"></div>
+            <div class="swatch-row" id="swatch-row"></div>
+          </div>
+          <div class="entry-col">
+            <div class="entry-head">
+              <div class="entry-head-title" id="entry-head-title">September.</div>
+              <div class="entry-head-meta" id="entry-head-meta">Thursday · the 25th</div>
+            </div>
+            <div id="prompts"></div>
+            <div class="plate-save" id="plate-save">
+              <button class="btn-primary" data-action="save-plate" id="save-plate-btn">Save plate</button>
+              <span class="plate-save-stamp" id="plate-save-stamp"></span>
+            </div>
+            <div class="plate-footer">
+              <span><span class="save-pulse" id="save-pulse"></span><span id="save-status">unsealed</span></span>
+              <span id="days-until-caption"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATLAS -->
+    <section class="page" data-page="atlas">
+      <div class="atlas-wrap">
+        <div class="atlas-header">
+          <div>
+            <div class="atlas-title stagger" data-stagger><em>S</em>eason I.</div>
+            <div class="atlas-sub" id="atlas-sub"></div>
+          </div>
+          <div style="font-size:10px; letter-spacing:0.24em; color:var(--muted); text-transform:uppercase;">click to open</div>
+        </div>
+        <div id="export-nudge"></div>
+        <div class="atlas-grid" id="atlas-grid"></div>
+        <div class="atlas-actions">
+          <div class="atlas-actions-right">
+            <button class="link-btn" data-action="export">Export · JSON</button>
+            <button class="link-btn" data-action="import">Import · JSON</button>
+            <button class="link-btn" data-action="remind">Remind me · ICS</button>
+          </div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:0.04em;">Lives on your device.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSTER -->
+    <section class="page" data-page="poster">
+      <div class="poster-wrap">
+        <div class="poster-stage">
+          <div id="poster-scaler">
+            <div class="poster" id="poster">
+              <div class="poster-head">
+                <div class="poster-title">
+                  <span
+                    class="poster-title-brand"
+                    id="poster-title-brand"
+                    contenteditable="true"
+                    spellcheck="false"
+                    data-placeholder="Meridian"
+                    aria-label="Poster brand">Meridian</span><span
+                    class="poster-title-sub"
+                    id="poster-title-sub"
+                    contenteditable="true"
+                    spellcheck="false"
+                    data-placeholder="Season I"
+                    aria-label="Poster subtitle">Season I</span>
+                </div>
+                <div class="poster-rule"></div>
+                <div class="poster-sub" id="poster-subtitle"></div>
+              </div>
+              <div class="poster-grid" id="poster-grid"></div>
+              <div class="poster-foot" id="poster-foot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="poster-controls">
+          <h2 class="stagger" data-stagger>One sheet.<br/><em>One year.</em></h2>
+          <p>Twelve plates set in a quiet 4 × 3 grid. Download as a high-resolution image; print at home, or send to a press.</p>
+          <div class="poster-spec">
+            <div class="poster-spec-row"><span>Layout</span><span>4 × 3 plates</span></div>
+            <div class="poster-spec-row"><span>Paper</span><span>cream linen</span></div>
+            <div class="poster-spec-row"><span>Season</span><span id="poster-spec-season">Season I</span></div>
+            <div class="poster-spec-row"><span>Format</span><span>PNG · 3840 × 3200</span></div>
+          </div>
+          <div class="poster-exports">
+            <button class="btn-primary" data-action="export-png">Download poster</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="cursor"></div>
+
+  <input type="file" id="import-file" accept="application/json" style="display:none">
+
+  <!-- Settings drawer -->
+  <div class="drawer-back" data-action="close-settings"></div>
+  <aside class="drawer" id="drawer" aria-label="Settings">
+    <button class="drawer-close" data-action="close-settings" aria-label="Close">×</button>
+    <div class="drawer-sub">Settings</div>
+    <h3><em>S</em>eason &amp; reminder.</h3>
+    <div style="margin-top:24px;">
+      <div class="drawer-row">
+        <label>Season title</label>
+        <input type="text" id="set-title" maxlength="60" placeholder="Meridian Season I">
+      </div>
+      <div class="drawer-row">
+        <label>Start month</label>
+        <input type="month" id="set-start">
+      </div>
+      <div class="drawer-row">
+        <label>Reminder day of month</label>
+        <div class="control">
+          <input type="number" id="set-day" min="1" max="28" value="25" style="max-width:80px;">
+          <button class="link-btn" data-action="remind">Download reminder · ICS</button>
+        </div>
+      </div>
+      <div class="drawer-row">
+        <label>Archive</label>
+        <div class="control" style="gap:18px;">
+          <button class="link-btn" data-action="export">Export · JSON</button>
+          <button class="link-btn" data-action="import">Import · JSON</button>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-danger">
+      <p>Wipe every plate and start over. There is no undo. Export first if you'd like to keep a copy.</p>
+      <button data-action="reset">Reset the archive</button>
+    </div>
+    <p style="margin-top:28px; font-size:11px; color:var(--muted); line-height:1.6;">
+      Meridian stores everything in your browser. Nothing is sent anywhere.
+      <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" style="color:var(--muted);">Source-available · PolyForm Noncommercial 1.0.0</a>.
+    </p>
+  </aside>
+
+  <!-- Toast root -->
+  <div id="toast-root" aria-live="polite"></div>
+
+  <script>
+  // ── Constants ────────────────────────────────────────────────
+  const HUES = [
+    // Row 1 — warm reds → oranges → golds
+    { name: "Conch",      hex: "#e88a78", ink: "#2a1810" },
+    { name: "Coral",      hex: "#d65860", ink: "#f4eedc" },
+    { name: "Brick",      hex: "#b84838", ink: "#f4eedc" },
+    { name: "Rust",       hex: "#a04830", ink: "#f4eedc" },
+    { name: "Clay",       hex: "#c4684a", ink: "#f4eedc" },
+    { name: "Ochre",      hex: "#c89438", ink: "#2a1810" },
+    { name: "Saffron",    hex: "#e0a040", ink: "#2a1808" },
+    { name: "Butter",     hex: "#e8c860", ink: "#2a1810" },
+    // Row 2 — yellow-greens → greens → teals → cool blue-grays
+    { name: "Chartreuse", hex: "#b8b438", ink: "#2a1810" },
+    { name: "Pistachio",  hex: "#c8d488", ink: "#2a1810" },
+    { name: "Sage",       hex: "#88a088", ink: "#2a1810" },
+    { name: "Mint",       hex: "#a8d4b8", ink: "#1c2a20" },
+    { name: "Forest",     hex: "#486050", ink: "#f4eedc" },
+    { name: "Pacific",    hex: "#4a8a9a", ink: "#f4eedc" },
+    { name: "Slate",      hex: "#6a7a85", ink: "#f4eedc" },
+    { name: "Powder",     hex: "#98b4c4", ink: "#2a1810" },
+    // Row 3 — blues → purples → pinks → neutrals
+    { name: "Periwinkle", hex: "#4a6a8a", ink: "#f4eedc" },
+    { name: "Cobalt",     hex: "#2a3a78", ink: "#f4eedc" },
+    { name: "Aubergine",  hex: "#4a2848", ink: "#f4eedc" },
+    { name: "Plum",       hex: "#5a3858", ink: "#f4eedc" },
+    { name: "Lavender",   hex: "#aa92c0", ink: "#2a1810" },
+    { name: "Blush",      hex: "#e8b8b8", ink: "#2a1810" },
+    { name: "Putty",      hex: "#b8a888", ink: "#2a1810" },
+    { name: "Bone",       hex: "#ede5d0", ink: "#2a1810" },
+  ];
+  const ROMAN = ["", "I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const PROMPTS = [
+    { key: "where",   num: "i" },
+    { key: "changed", num: "ii" },
+    { key: "learned", num: "iii" },
+    { key: "worried", num: "iv" },
+    { key: "excited", num: "v" },
+  ];
+  const STORAGE_KEY = "meridian:v1";
+
+  // ── Helpers ──────────────────────────────────────────────────
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const debounce = (fn, ms = 400) => {
+    let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+  };
+  const monthKey = (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  const todayKey = () => monthKey(new Date());
+  const monthsBetween = (fromKey, toKey) => {
+    const [fy, fm] = fromKey.split("-").map(Number);
+    const [ty, tm] = toKey.split("-").map(Number);
+    return (ty - fy) * 12 + (tm - fm);
+  };
+  const keyToParts = (key) => {
+    const [y, m] = key.split("-").map(Number);
+    return { year: y, month: m, monthIndex: m - 1 };
+  };
+  const renderTeaserFrom = (entry) =>
+    entry?.teaser ||
+    (entry?.prompts?.where || "").split(/[.!?]/)[0].trim() ||
+    "";
+  const PROMPT_PLACEHOLDERS = {
+    where:   "—",
+    changed: "—",
+    learned: "—",
+    worried: "—",
+    excited: "—",
+  };
+  const PROMPT_LABELS = {
+    where:   "Where I am",
+    changed: "What changed",
+    learned: "What I learned",
+    worried: "What worries me",
+    excited: "What excites me",
+  };
+  const isPastMonth = (key) => {
+    if (!key) return false;
+    const today = todayKey();
+    return monthsBetween(key, today) > 0;
+  };
+  // Days until the *next plate opens*, i.e. midnight on the 1st of next month.
+  // This is when the current month seals and the next becomes writable —
+  // independent of the user-configurable calendar reminder day.
+  const daysUntilNextPlate = () => {
+    const today = new Date();
+    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const nextFirst = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    const diff = Math.round((nextFirst - todayMidnight) / (1000 * 60 * 60 * 24));
+    return Math.max(0, diff);
+  };
+
+  // ── Toast ────────────────────────────────────────────────────
+  function toast(msg, ms = 2400) {
+    const root = $("#toast-root");
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.textContent = msg;
+    root.appendChild(el);
+    setTimeout(() => {
+      el.classList.add("out");
+      setTimeout(() => el.remove(), 280);
+    }, ms);
+  }
+
+  // ── State ────────────────────────────────────────────────────
+  let state = load();
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultState();
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== "object") return defaultState();
+      const out = defaultState();
+      if (typeof data.startMonth === "string" && /^\d{4}-\d{2}$/.test(data.startMonth)) out.startMonth = data.startMonth;
+      if (typeof data.seasonTitle === "string") out.seasonTitle = data.seasonTitle.slice(0, 60);
+      if (typeof data.posterTitleBrand === "string") out.posterTitleBrand = data.posterTitleBrand.slice(0, 60);
+      if (typeof data.posterTitleSub === "string") out.posterTitleSub = data.posterTitleSub.slice(0, 60);
+      // Migrate: if old data only has seasonTitle, split it into brand + sub.
+      if (typeof data.seasonTitle === "string" &&
+          (typeof data.posterTitleBrand !== "string" || typeof data.posterTitleSub !== "string")) {
+        const parts = splitTitleString(data.seasonTitle);
+        if (typeof data.posterTitleBrand !== "string") out.posterTitleBrand = parts.brand;
+        if (typeof data.posterTitleSub !== "string") out.posterTitleSub = parts.sub;
+      }
+      if (typeof data.reminderDay === "number" && data.reminderDay >= 1 && data.reminderDay <= 28) out.reminderDay = Math.floor(data.reminderDay);
+      if (data.reminderSetAt) out.reminderSetAt = data.reminderSetAt;
+      if (data.dismissNudge) out.dismissNudge = !!data.dismissNudge;
+      if (data.entries && typeof data.entries === "object") {
+        for (const k of Object.keys(data.entries)) {
+          if (!/^\d{4}-\d{2}$/.test(k)) continue;
+          const v = data.entries[k];
+          if (!v || typeof v !== "object") continue;
+          const safeP = (s) => typeof s === "string" ? s.slice(0, 8000) : "";
+          out.entries[k] = {
+            plateNumber: Number.isInteger(v.plateNumber) && v.plateNumber >= 1 && v.plateNumber <= 144
+              ? v.plateNumber
+              : (out.startMonth ? monthsBetween(out.startMonth, k) + 1 : 1),
+            hue: safeHue(v.hue),
+            teaser: typeof v.teaser === "string" ? v.teaser.slice(0, 160) : "",
+            prompts: {
+              where:   safeP(v.prompts && v.prompts.where),
+              changed: safeP(v.prompts && v.prompts.changed),
+              learned: safeP(v.prompts && v.prompts.learned),
+              worried: safeP(v.prompts && v.prompts.worried),
+              excited: safeP(v.prompts && v.prompts.excited),
+            },
+            updatedAt: Number.isFinite(v.updatedAt) ? v.updatedAt : Date.now(),
+            sealedAt: Number.isFinite(v.sealedAt) ? v.sealedAt : null,
+          };
+        }
+      }
+      return out;
+    } catch {
+      return defaultState();
+    }
+  }
+  function defaultState() {
+    return {
+      v: 1,
+      startMonth: null,
+      entries: {},
+      reminderSetAt: null,
+      reminderDay: 25,
+      seasonTitle: "Meridian Season I",
+      posterTitleBrand: "Meridian",
+      posterTitleSub: "Season I",
+    };
+  }
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    const pulse = $("#save-pulse");
+    if (pulse) { pulse.classList.remove("active"); void pulse.offsetWidth; pulse.classList.add("active"); }
+  }
+  const persistSoon = debounce(save, 300);
+
+  function ensureEntry(key) {
+    if (!state.entries[key]) {
+      const plateNumber = state.startMonth ? monthsBetween(state.startMonth, key) + 1 : 1;
+      state.entries[key] = {
+        plateNumber,
+        hue: HUES[(plateNumber - 1) % HUES.length],
+        teaser: "",
+        prompts: { where: "", changed: "", learned: "", worried: "", excited: "" },
+        updatedAt: Date.now(),
+        sealedAt: null,
+      };
+    }
+    return state.entries[key];
+  }
+
+  function currentMonthKey() {
+    if (!state.startMonth) return todayKey();
+    const today = todayKey();
+    const diff = monthsBetween(state.startMonth, today);
+    if (diff < 0) return state.startMonth;
+    if (diff > 11) {
+      const [y, m] = state.startMonth.split("-").map(Number);
+      const d = new Date(y, m - 1 + 11, 1);
+      return monthKey(d);
+    }
+    return today;
+  }
+
+  // ── Routing ──────────────────────────────────────────────────
+  const PAGES = ["begin", "plate", "atlas", "poster"];
+
+  function currentRoute() {
+    const h = location.hash.replace("#", "");
+    if (PAGES.includes(h)) return h;
+    return Object.keys(state.entries).length ? "plate" : "begin";
+  }
+
+  function navigateTo(page, key) {
+    if (key) viewingKey = key;
+    location.hash = page;
+  }
+
+  let viewingKey = null;
+
+  function renderRoute() {
+    const route = currentRoute();
+    $$(".page").forEach(p => p.classList.toggle("active", p.dataset.page === route));
+    $$("nav.app a, .logo").forEach(a => {
+      const target = a.getAttribute("href").replace("#", "");
+      a.classList.toggle("active", target === route);
+    });
+    if (route === "begin")  renderBegin();
+    if (route === "plate")  renderPlate();
+    if (route === "atlas")  renderAtlas();
+    if (route === "poster") renderPoster();
+    // re-trigger word stagger animations
+    $$(".page.active [data-stagger]").forEach(el => {
+      if (!el.dataset.original) el.dataset.original = el.innerHTML;
+      el.innerHTML = el.dataset.original;
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      const textNodes = [];
+      let n;
+      while ((n = walker.nextNode())) textNodes.push(n);
+      let i = 0;
+      textNodes.forEach(node => {
+        const parts = node.nodeValue.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach(p => {
+          if (p.trim()) {
+            const s = document.createElement("span");
+            s.textContent = p;
+            s.style.animationDelay = (i * 40) + "ms";
+            i++;
+            frag.appendChild(s);
+          } else {
+            frag.appendChild(document.createTextNode(p));
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      });
+    });
+  }
+
+  window.addEventListener("hashchange", () => {
+    renderRoute();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  // ── Render: BEGIN ────────────────────────────────────────────
+  function renderBegin() {
+    const el = $("#begin-preview");
+    el.innerHTML = "";
+    const previews = [
+      { hue: HUES[1], month: "<em>J</em>uly",    roman: "II",  date: "25 · VII · 2026", n: 2, line: "First customer — they said yes.",  cls: "p1" },
+      { hue: HUES[0], month: "<em>J</em>une",    roman: "I",   date: "25 · VI · 2026",  n: 1, line: "Started. Mostly fear, some adrenaline.",  cls: "p2" },
+      { hue: HUES[3], month: "<em>S</em>ept",    roman: "IV",  date: "25 · IX · 2026",  n: 4, line: "Four months in. Two pilots, both small.", cls: "p3" },
+    ];
+    previews.forEach(p => {
+      const plate = document.createElement("div");
+      plate.className = "plate " + p.cls;
+      plate.style.background = p.hue.hex;
+      plate.style.color = p.hue.ink;
+      plate.innerHTML = `
+        <div class="plate-meta-top"><span>Meridian</span><span>Plate ${p.roman}</span></div>
+        <div>
+          <div class="plate-title">${p.month}.</div>
+          <div class="plate-teaser">${p.line}</div>
+        </div>
+        <div class="plate-meta-bot"><span>${p.date}</span><span>${p.n} / 12</span></div>
+      `;
+      el.appendChild(plate);
+    });
+  }
+
+  // ── Render: PLATE ────────────────────────────────────────────
+  function renderPlate() {
+    if (!state.startMonth) state.startMonth = todayKey();
+    const key = viewingKey || currentMonthKey();
+    viewingKey = key;
+    const entry = ensureEntry(key);
+    const { monthIndex, year, month } = keyToParts(key);
+    const monthName = MONTHS[monthIndex];
+    const monthRoman = ROMAN[month];
+    const plateRoman = ROMAN[entry.plateNumber] || "—";
+
+    // hero
+    const hero = $("#plate-hero");
+    hero.innerHTML = "";
+    const plate = document.createElement("div");
+    plate.className = "plate";
+    plate.style.background = entry.hue.hex;
+    plate.style.color = entry.hue.ink;
+    plate.id = "plate-display";
+    const customTeaser = entry.teaser || "";
+    const derived = (entry?.prompts?.where || "").split(/[.!?]/)[0].trim();
+    const locked = isPastMonth(key);
+    plate.innerHTML = `
+      <div class="seal-ring"></div>
+      <div class="plate-meta-top"><span>Meridian</span><span>Plate ${plateRoman}</span></div>
+      <div>
+        <div class="plate-title">${stylizeMonth(monthName)}.</div>
+        <div class="plate-teaser" id="plate-teaser"
+             ${locked ? "" : 'contenteditable="true" spellcheck="false"'}
+             data-placeholder="${derived ? escapeHtml(derived) : "untitled"}"
+        >${escapeHtml(customTeaser)}</div>
+      </div>
+      <div class="plate-meta-bot">
+        <span>${new Date().getDate()} · ${monthRoman} · ${year}</span>
+        <span>${entry.plateNumber} / 12</span>
+      </div>
+    `;
+    hero.appendChild(plate);
+    // Append the hover hint after the plate
+    const hint = document.createElement("div");
+    hint.className = "teaser-hint-inline";
+    hint.textContent = locked ? "sealed" : "tip · click the line below the month to title this plate";
+    hero.appendChild(hint);
+
+    // spine — inline single row
+    $("#spine-row").innerHTML = `
+      <span class="spine-plate">Plate ${escapeHtml(plateRoman)} · Volume I</span>
+      <span class="spine-hue"><span class="spine-hue-dot" style="background:${escapeAttr(entry.hue.hex)};"></span>${escapeHtml(entry.hue.name.toLowerCase())}</span>
+    `;
+
+    // swatches — single row of 12 with hover name
+    const sw = $("#swatch-row");
+    sw.innerHTML = `
+      <div class="swatch-label">
+        <span>Pigment</span>
+        <span class="swatch-hover" id="swatch-hover">${escapeHtml(entry.hue.name)}</span>
+      </div>
+    `;
+    const hoverLabel = sw.querySelector("#swatch-hover");
+    HUES.forEach((h) => {
+      const s = document.createElement("div");
+      s.className = "swatch" + (h.hex === entry.hue.hex ? " selected" : "");
+      s.style.background = h.hex;
+      s.title = h.name;
+      s.dataset.hue = h.name;
+      s.addEventListener("mouseenter", () => { hoverLabel.textContent = h.name; });
+      s.addEventListener("click", () => {
+        entry.hue = h;
+        entry.updatedAt = Date.now();
+        persistSoon();
+        renderPlate();
+      });
+      sw.appendChild(s);
+    });
+    sw.addEventListener("mouseleave", () => { hoverLabel.textContent = entry.hue.name; });
+
+    // prompts
+    const pwrap = $("#prompts");
+    pwrap.innerHTML = "";
+    PROMPTS.forEach((p, i) => {
+      const block = document.createElement("div");
+      block.className = "prompt";
+      block.innerHTML = `
+        <div class="prompt-label"><span class="prompt-num">${p.num}.</span>${PROMPT_LABELS[p.key]}</div>
+        <textarea
+          class="prompt-input"
+          data-key="${p.key}"
+          rows="1"
+          placeholder="${PROMPT_PLACEHOLDERS[p.key]}"
+        >${escapeHtml(entry.prompts[p.key] || "")}</textarea>
+      `;
+      pwrap.appendChild(block);
+    });
+
+    if (locked) plate.classList.add("locked");
+
+    // Entry head with month name + day-of-week + sealed/active state
+    const today = new Date();
+    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][today.getDay()];
+    const ord = (n) => n + (["th","st","nd","rd"][(n % 100 > 10 && n % 100 < 14) ? 0 : Math.min(n % 10, 4)] || "th");
+    const titleEl = $("#entry-head-title");
+    const metaEl = $("#entry-head-meta");
+    if (titleEl) titleEl.innerHTML = `${stylizeMonth(monthName)}.`;
+    if (metaEl) {
+      metaEl.textContent = locked
+        ? `Sealed · read only`
+        : `${dayName} · the ${ord(today.getDate())}`;
+    }
+
+    $$("#prompts .prompt-input").forEach(ta => {
+      autoSize(ta);
+      ta.readOnly = locked;
+      ta.addEventListener("input", () => {
+        autoSize(ta);
+        const k = ta.dataset.key;
+        entry.prompts[k] = ta.value;
+        entry.updatedAt = Date.now();
+        if (k === "where" && !entry.teaser) {
+          const t = renderTeaserFrom(entry);
+          const te = $("#plate-teaser");
+          if (te) te.dataset.placeholder = t || "click to title this plate";
+        }
+        persistSoon();
+        updateSaveStatus();
+      });
+      // Enter (without shift) → jump to next prompt
+      ta.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          const all = $$("#prompts .prompt-input");
+          const idx = all.indexOf(ta);
+          const next = all[idx + 1];
+          if (next) next.focus();
+          else ta.blur();
+        }
+      });
+    });
+
+    // Inline teaser on the plate face
+    const teaserEl = $("#plate-teaser");
+    if (teaserEl && !locked) {
+      teaserEl.addEventListener("input", () => {
+        entry.teaser = teaserEl.textContent.trim();
+        entry.updatedAt = Date.now();
+        persistSoon();
+        updateSaveStatus();
+      });
+      teaserEl.addEventListener("blur", () => {
+        if (!entry.teaser) {
+          // fall back to derived
+          const t = renderTeaserFrom(entry);
+          teaserEl.dataset.placeholder = t ? t : "click to title this plate";
+        }
+      });
+    }
+
+    updateSaveStatus();
+    renderSavedStamp();
+    // If the month is sealed (past), hide the Save button — read-only.
+    const saveBlock = $("#plate-save");
+    if (saveBlock) saveBlock.style.display = locked ? "none" : "flex";
+  }
+
+  function stylizeMonth(name) {
+    return `<em>${name[0]}</em>${name.slice(1)}`;
+  }
+
+  function updateSaveStatus() {
+    const key = viewingKey;
+    const entry = state.entries[key];
+    if (!entry) return;
+    const filled = Object.values(entry.prompts).filter(v => v && v.trim()).length;
+    const words = Object.values(entry.prompts).join(" ").trim().split(/\s+/).filter(Boolean).length;
+    const t = new Date(entry.updatedAt);
+    const time = `${String(t.getHours()).padStart(2,"0")}:${String(t.getMinutes()).padStart(2,"0")}`;
+    const el = $("#save-status");
+    if (!el) return;
+    if (isPastMonth(key)) {
+      el.innerHTML = `<em>sealed</em> — read only`;
+    } else if (filled === 0) {
+      el.innerHTML = `<em>unsealed</em> — start writing`;
+    } else if (filled < 5) {
+      el.innerHTML = `<em>saved</em> at ${time} · ${filled} of 5`;
+    } else {
+      el.innerHTML = `<em>complete</em> at ${time} · ⌘S to seal`;
+    }
+    // word count
+    const dueEl = $("#days-until-caption");
+    if (dueEl && !isPastMonth(key)) {
+      const n = daysUntilNextPlate();
+      const wordPart = words > 0 ? `<span class="word-count">${words} words</span> · ` : "";
+      const nextMonthName = MONTHS[(new Date().getMonth() + 1) % 12];
+      const nextMessage = n === 0
+        ? `${nextMonthName}'s plate unseals today`
+        : `${nextMonthName}'s plate unseals in ${n} day${n === 1 ? "" : "s"}`;
+      dueEl.innerHTML = `${wordPart}${nextMessage}`;
+      // wrap right-side as serif italic
+      dueEl.style.fontFamily = "var(--serif)";
+      dueEl.style.fontStyle = "italic";
+      dueEl.style.fontSize = "11px";
+      dueEl.style.letterSpacing = "0.04em";
+      dueEl.style.color = "var(--muted)";
+      dueEl.style.textTransform = "none";
+    } else if (dueEl) {
+      dueEl.innerHTML = `<span class="word-count">${words} words</span>`;
+    }
+  }
+
+  function autoSize(ta) {
+    ta.style.height = "auto";
+    ta.style.height = ta.scrollHeight + "px";
+  }
+
+  // ── Render: ATLAS ────────────────────────────────────────────
+  function renderAtlas() {
+    const start = state.startMonth || todayKey();
+    const startParts = keyToParts(start);
+    const startDate = new Date(startParts.year, startParts.monthIndex, 1);
+    const sealedCount = Object.keys(state.entries).length;
+    const currentKey = currentMonthKey();
+
+    $("#atlas-sub").innerHTML = `${escapeHtml(state.seasonTitle || "Meridian Season I")} · ${escapeHtml(romanYear(startParts.year))} — ${escapeHtml(romanYear(startParts.year + 1))} · <em>${sealedCount} of 12 set</em>`;
+
+    // export nudge: every 3 plates
+    const nudge = $("#export-nudge");
+    nudge.innerHTML = "";
+    if (sealedCount > 0 && sealedCount % 3 === 0 && !state.dismissNudge) {
+      nudge.innerHTML = `
+        <div class="export-nudge">
+          <span><em>${sealedWords(sealedCount)} plates set.</em> Export a copy?</span>
+          <div class="export-nudge-actions">
+            <button class="link-btn" data-action="export">Export · JSON</button>
+            <button class="link-btn" data-action="dismiss-nudge">Dismiss</button>
+          </div>
+        </div>
+      `;
+    }
+
+    const grid = $("#atlas-grid");
+    grid.innerHTML = "";
+    for (let i = 0; i < 12; i++) {
+      const d = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+      const key = monthKey(d);
+      const entry = state.entries[key];
+      const isCurrent = (key === currentKey);
+      const cell = document.createElement("div");
+      cell.className = "atlas-cell";
+      cell.style.animationDelay = (i * 35) + "ms";
+      if (isCurrent) cell.classList.add("current");
+      if (!entry) cell.classList.add("empty");
+
+      const monthName = MONTHS[d.getMonth()];
+      const monthRoman = ROMAN[d.getMonth() + 1];
+      const plateRoman = ROMAN[i + 1];
+
+      const todayBadge = isCurrent ? `<div class="today-badge">Today</div>` : "";
+      if (entry) {
+        cell.innerHTML = `
+          ${todayBadge}
+          <div class="plate" style="background:${escapeAttr(entry.hue.hex)};color:${escapeAttr(entry.hue.ink)};">
+            <div class="plate-meta-top"><span>Meridian</span><span>${escapeHtml(plateRoman)}</span></div>
+            <div>
+              <div class="plate-title-sm">${stylizeMonth(MONTHS_SHORT[d.getMonth()])}.</div>
+              <div class="plate-teaser-sm">${escapeHtml(renderTeaserFrom(entry))}</div>
+            </div>
+            <div class="plate-meta-bot">
+              <span>${d.getDate()}.${escapeHtml(monthRoman)}.${String(d.getFullYear()).slice(2)}</span>
+              <span>${i + 1}/12</span>
+            </div>
+          </div>
+          <div class="hue-caption"><span class="hue-dot" style="background:${escapeAttr(entry.hue.hex)};"></span>${escapeHtml(entry.hue.name)}${isCurrent ? ` · <em style='font-style:italic;'>now writing</em>` : (isPastMonth(key) ? ` · sealed` : "")}</div>
+        `;
+        cell.addEventListener("click", () => navigateTo("plate", key));
+      } else {
+        const dueLine = isCurrent ? `<div class="hue-caption" style="color:var(--ink);"><em style="font-style:italic;">waiting for you · ${daysUntilNextPlate()}d</em></div>` : "";
+        cell.innerHTML = `
+          ${todayBadge}
+          <div class="plate${isCurrent ? " current" : ""}">
+            <div class="plate-meta-top"><span>Meridian · ${escapeHtml(plateRoman)}</span><span></span></div>
+            <div>
+              <div class="plate-title-sm"><em>${escapeHtml(monthName)}.</em></div>
+            </div>
+            <div class="unsealed">${isCurrent ? "open now" : "unsealed"}</div>
+          </div>
+          ${dueLine}
+        `;
+        if (isCurrent) cell.addEventListener("click", () => navigateTo("plate", key));
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  function toRoman(n) {
+    if (!Number.isInteger(n) || n < 1 || n > 3999) return String(n);
+    const map = [
+      [1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],
+      [100,"C"],[90,"XC"],[50,"L"],[40,"XL"],
+      [10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]
+    ];
+    let out = "", v = n;
+    for (const [k, s] of map) {
+      while (v >= k) { out += s; v -= k; }
+    }
+    return out;
+  }
+  function romanYear(y) { return toRoman(y); }
+  function sealedWords(n) {
+    return ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"][n] || n;
+  }
+
+  // ── Render: POSTER ───────────────────────────────────────────
+  function renderPoster() {
+    const start = state.startMonth || todayKey();
+    const startParts = keyToParts(start);
+    const startDate = new Date(startParts.year, startParts.monthIndex, 1);
+    // Editable title — populate the two spans from state.
+    const brand = state.posterTitleBrand || "Meridian";
+    const sub = state.posterTitleSub || "Season I";
+    const brandEl = $("#poster-title-brand");
+    const titleSubEl = $("#poster-title-sub");
+    if (brandEl && document.activeElement !== brandEl) brandEl.textContent = brand;
+    if (titleSubEl && document.activeElement !== titleSubEl) titleSubEl.textContent = sub;
+    const seasonSpec = $("#poster-spec-season");
+    if (seasonSpec) seasonSpec.textContent = `${brand} · ${sub}`;
+    const grid = $("#poster-grid");
+    grid.innerHTML = "";
+    for (let i = 0; i < 12; i++) {
+      const d = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+      const key = monthKey(d);
+      const entry = state.entries[key];
+      const plateRoman = ROMAN[i + 1];
+      const monthShort = MONTHS_SHORT[d.getMonth()];
+      const cell = document.createElement("div");
+      cell.className = "poster-cell" + (entry ? "" : " empty");
+      if (entry) {
+        cell.style.background = entry.hue.hex;
+        cell.style.color = entry.hue.ink;
+      }
+      const dateStamp = `${d.getDate()}.${ROMAN[d.getMonth()+1]}.${String(d.getFullYear()).slice(2)}`;
+      const line = entry ? escapeHtml(renderTeaserFrom(entry)) : "";
+      const footHtml = entry
+        ? `<span class="dot" style="background:${escapeAttr(entry.hue.hex)};border:0.5px solid currentColor;"></span><span>${escapeHtml(entry.hue.name)}</span>`
+        : `<span>unsealed</span>`;
+      cell.innerHTML = `
+        <div class="poster-cell-meta-top">
+          <span>Plate ${escapeHtml(plateRoman)}</span>
+          <span>${escapeHtml(dateStamp)}</span>
+        </div>
+        <div class="poster-cell-body">
+          <div class="poster-cell-name">${stylizeMonth(monthShort)}.</div>
+          ${line ? `<div class="poster-cell-line">${line}</div>` : ""}
+        </div>
+        <div class="poster-cell-foot">${footHtml}</div>
+      `;
+      grid.appendChild(cell);
+    }
+    const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 11, 1);
+    const subEl = $("#poster-subtitle");
+    if (subEl) {
+      const startLabel = `${MONTHS[startDate.getMonth()]} ${startDate.getFullYear()}`;
+      const endLabel = `${MONTHS[endDate.getMonth()]} ${endDate.getFullYear()}`;
+      subEl.textContent = `${startLabel} — ${endLabel}`;
+    }
+    $("#poster-foot").innerHTML = `<span>Twelve plates</span>`;
+    fitPoster();
+  }
+
+  // Scale the 960×640 poster down to fit whatever stage we have,
+  // without changing the underlying pixel size (so PDF/PNG stay sharp).
+  function fitPoster() {
+    const stage = $("#poster-scaler");
+    const poster = $("#poster");
+    if (!stage || !poster) return;
+    poster.style.transform = "scale(1)";
+    const stageW = stage.clientWidth;
+    if (!stageW) return;
+    const scale = Math.min(1, stageW / 960);
+    poster.style.transform = `scale(${scale})`;
+    poster.style.transformOrigin = "top left";
+    // Reserve vertical room for the scaled poster (since transform doesn't change layout box)
+    stage.style.height = (800 * scale) + "px";
+  }
+  window.addEventListener("resize", () => {
+    if (location.hash.replace("#", "") === "poster") fitPoster();
+  });
+
+  // ── Actions ──────────────────────────────────────────────────
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-action]");
+    if (!a) return;
+    const act = a.dataset.action;
+    if (act === "start") {
+      if (!state.startMonth) state.startMonth = todayKey();
+      save();
+      navigateTo("plate");
+      toast("Welcome. Your first plate is open.");
+    } else if (act === "remind") {
+      downloadICS();
+      toast("Calendar reminder saved. Add it to your calendar.");
+    } else if (act === "export") {
+      exportJSON();
+      toast("Archive exported — keep it somewhere safe.");
+    } else if (act === "import") {
+      $("#import-file").click();
+    } else if (act === "dismiss-nudge") {
+      state.dismissNudge = true; save(); renderAtlas();
+    } else if (act === "export-png") {
+      exportPNG(a);
+    } else if (act === "save-plate") {
+      savePlateExplicit(a);
+    } else if (act === "open-settings") {
+      openDrawer();
+    } else if (act === "close-settings") {
+      closeDrawer();
+    } else if (act === "reset") {
+      if (confirm("Wipe every plate and start over? There is no undo.")) {
+        state = defaultState();
+        save();
+        closeDrawer();
+        navigateTo("begin");
+        toast("Archive cleared.");
+      }
+    }
+  });
+
+  // ── Settings drawer ──────────────────────────────────────────
+  function openDrawer() {
+    $("#set-title").value = state.seasonTitle || "Meridian Season I";
+    $("#set-start").value = state.startMonth || todayKey();
+    $("#set-day").value = state.reminderDay || 25;
+    $("#drawer").classList.add("open");
+    $(".drawer-back").classList.add("open");
+  }
+  function closeDrawer() {
+    $("#drawer").classList.remove("open");
+    $(".drawer-back").classList.remove("open");
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDrawer();
+  });
+  // Wire Settings drawer input changes.
+  document.addEventListener("input", (e) => {
+    if (e.target.id === "set-title") {
+      const v = (e.target.value || "").slice(0, 60);
+      const parts = splitTitleString(v);
+      state.posterTitleBrand = parts.brand;
+      state.posterTitleSub = parts.sub;
+      state.seasonTitle = `${parts.brand} ${parts.sub}`.trim();
+      persistSoon();
+      renderRoute();
+    } else if (e.target.id === "set-start") {
+      const v = e.target.value;
+      if (/^\d{4}-\d{2}$/.test(v)) {
+        // shift plate numbers across existing entries
+        state.startMonth = v;
+        Object.keys(state.entries).forEach(k => {
+          state.entries[k].plateNumber = monthsBetween(v, k) + 1;
+        });
+        persistSoon(); renderRoute();
+      }
+    } else if (e.target.id === "set-day") {
+      const n = Math.min(28, Math.max(1, parseInt(e.target.value, 10) || 25));
+      state.reminderDay = n;
+      persistSoon();
+    }
+  });
+
+  // Link delegation: make persistent nav use hashchange
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("[data-link]");
+    if (!link) return;
+    // Reset viewing key when nav-clicking, so Plate resolves to current month
+    const target = link.getAttribute("href").replace("#", "");
+    if (target === "plate") viewingKey = null;
+  });
+
+  $("#import-file").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast("File is unusually large. Aborting.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const raw = JSON.parse(reader.result);
+        if (!raw || typeof raw !== "object" || !raw.entries || typeof raw.entries !== "object") {
+          throw new Error("invalid");
+        }
+        const clean = defaultState();
+        // startMonth
+        if (typeof raw.startMonth === "string" && /^\d{4}-\d{2}$/.test(raw.startMonth)) {
+          clean.startMonth = raw.startMonth;
+        }
+        // seasonTitle (string, length-bounded)
+        if (typeof raw.seasonTitle === "string") {
+          clean.seasonTitle = raw.seasonTitle.slice(0, 60);
+        }
+        if (typeof raw.posterTitleBrand === "string") {
+          clean.posterTitleBrand = raw.posterTitleBrand.slice(0, 60);
+        }
+        if (typeof raw.posterTitleSub === "string") {
+          clean.posterTitleSub = raw.posterTitleSub.slice(0, 60);
+        }
+        // Migration as above: split if the import only has the legacy field.
+        if (typeof raw.seasonTitle === "string" &&
+            (typeof raw.posterTitleBrand !== "string" || typeof raw.posterTitleSub !== "string")) {
+          const parts = splitTitleString(raw.seasonTitle);
+          if (typeof raw.posterTitleBrand !== "string") clean.posterTitleBrand = parts.brand;
+          if (typeof raw.posterTitleSub !== "string") clean.posterTitleSub = parts.sub;
+        }
+        // reminderDay (1–28)
+        if (typeof raw.reminderDay === "number" && raw.reminderDay >= 1 && raw.reminderDay <= 28) {
+          clean.reminderDay = Math.floor(raw.reminderDay);
+        }
+        // entries
+        clean.entries = {};
+        for (const k of Object.keys(raw.entries)) {
+          if (!/^\d{4}-\d{2}$/.test(k)) continue;
+          const v = raw.entries[k];
+          if (!v || typeof v !== "object") continue;
+          const safeP = (s) => typeof s === "string" ? s.slice(0, 8000) : "";
+          clean.entries[k] = {
+            plateNumber: Number.isInteger(v.plateNumber) && v.plateNumber >= 1 && v.plateNumber <= 144
+              ? v.plateNumber
+              : (clean.startMonth ? monthsBetween(clean.startMonth, k) + 1 : 1),
+            hue: safeHue(v.hue),
+            teaser: typeof v.teaser === "string" ? v.teaser.slice(0, 160) : "",
+            prompts: {
+              where:   safeP(v.prompts && v.prompts.where),
+              changed: safeP(v.prompts && v.prompts.changed),
+              learned: safeP(v.prompts && v.prompts.learned),
+              worried: safeP(v.prompts && v.prompts.worried),
+              excited: safeP(v.prompts && v.prompts.excited),
+            },
+            updatedAt: Number.isFinite(v.updatedAt) ? v.updatedAt : Date.now(),
+            sealedAt: Number.isFinite(v.sealedAt) ? v.sealedAt : null,
+          };
+        }
+        state = clean;
+        save();
+        renderRoute();
+        toast("Imported. Your plates are restored.");
+      } catch {
+        toast("That file didn't look like a Meridian archive.");
+      } finally {
+        e.target.value = "";
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  // ── Keyboard ─────────────────────────────────────────────────
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+      e.preventDefault();
+      sealPlate();
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      viewingKey = null;
+      navigateTo("plate");
+    }
+  });
+
+  function sealPlate() {
+    save();
+    updateSaveStatus();
+    const plate = $("#plate-display");
+    if (plate) {
+      plate.classList.remove("sealing");
+      void plate.offsetWidth;
+      plate.classList.add("sealing");
+      setTimeout(() => plate.classList.remove("sealing"), 600);
+    }
+    toast("Plate sealed.");
+  }
+
+  // Explicit "Save plate" gesture: stamps the entry with sealedAt,
+  // runs the same animation as ⌘S, then refreshes the date stamp.
+  function savePlateExplicit(btn) {
+    const key = viewingKey;
+    const entry = state.entries[key];
+    if (!entry) return;
+    entry.sealedAt = Date.now();
+    entry.updatedAt = Date.now();
+    save();
+    updateSaveStatus();
+    renderSavedStamp();
+    if (btn) {
+      const original = btn.textContent;
+      btn.classList.remove("flash"); void btn.offsetWidth;
+      btn.classList.add("flash");
+      btn.textContent = "✓  Saved";
+      setTimeout(() => {
+        btn.classList.remove("flash");
+        btn.textContent = original;
+      }, 1400);
+    }
+    // Same stamp animation as ⌘S so the gesture feels weighty.
+    const plate = $("#plate-display");
+    if (plate) {
+      plate.classList.remove("sealing");
+      void plate.offsetWidth;
+      plate.classList.add("sealing");
+      setTimeout(() => plate.classList.remove("sealing"), 600);
+    }
+    toast(`Saved · ${formatSavedDate(entry.sealedAt)}`);
+  }
+
+  // Human-readable "Tuesday, June 26 · 12:45"
+  function formatSavedDate(ts) {
+    if (!ts) return "";
+    const d = new Date(ts);
+    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const ord = (n) => n + (["th","st","nd","rd"][(n % 100 > 10 && n % 100 < 14) ? 0 : Math.min(n % 10, 4)] || "th");
+    const time = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    return `${days[d.getDay()]}, ${months[d.getMonth()]} ${ord(d.getDate())} · ${time}`;
+  }
+
+  function renderSavedStamp() {
+    const el = $("#plate-save-stamp");
+    if (!el) return;
+    const entry = state.entries[viewingKey];
+    if (!entry || !entry.sealedAt) {
+      el.textContent = "Save to stamp today's date.";
+      el.style.color = "var(--muted)";
+      return;
+    }
+    el.innerHTML = `<em>Saved</em> · ${escapeHtml(formatSavedDate(entry.sealedAt))}`;
+    el.style.color = "";
+  }
+
+  // ── Export JSON ──────────────────────────────────────────────
+  function exportJSON() {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `meridian-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  // ── ICS reminder ─────────────────────────────────────────────
+  function downloadICS() {
+    const now = new Date();
+    const day = state.reminderDay || 25;
+    let next = new Date(now.getFullYear(), now.getMonth(), day, 9, 0, 0);
+    if (next <= now) next = new Date(now.getFullYear(), now.getMonth() + 1, day, 9, 0, 0);
+    const fmt = (d) =>
+      d.getUTCFullYear() +
+      String(d.getUTCMonth() + 1).padStart(2, "0") +
+      String(d.getUTCDate()).padStart(2, "0") + "T" +
+      String(d.getUTCHours()).padStart(2, "0") +
+      String(d.getUTCMinutes()).padStart(2, "0") + "00Z";
+    const url = location.href.split("#")[0];
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Meridian//EN",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      "UID:meridian-" + Date.now() + "@local",
+      "DTSTAMP:" + fmt(now),
+      "DTSTART:" + fmt(next),
+      "DTEND:" + fmt(new Date(next.getTime() + 30 * 60 * 1000)),
+      "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + day + ";COUNT=12",
+      "SUMMARY:Meridian — write this month's plate",
+      "DESCRIPTION:Ten minutes. Where you are, what changed, what you learned.\\n\\nOpen: " + url,
+      "URL:" + url,
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar" });
+    const u = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = u; a.download = "meridian-reminder.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(u);
+    state.reminderSetAt = Date.now(); save();
+  }
+
+  // ── Export PNG (lazy load html-to-image) ─────────────────────
+  async function exportPNG(btn) {
+    const original = btn.textContent;
+    btn.textContent = "Rendering…";
+    try {
+      if (!window.htmlToImage) {
+        // Pinned version on jsDelivr; integrity is fetched once below.
+        // Failure to verify aborts the load — the user can still use the
+        // PDF export, which uses only browser-native printing.
+        await loadScript(
+          "https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js",
+          "sha384-wNc5eWDV2JUK6HVVRPhI8Bfc08Br5nd66LmdO7jDYWK0fd5uNvfqKKS9QXEOLwfO"
+        );
+      }
+      const node = $("#poster");
+      // Snapshot the un-scaled 960×800 master, not the preview-scaled version.
+      const prevTransform = node.style.transform;
+      const prevOrigin = node.style.transformOrigin;
+      node.style.transform = "none";
+      node.style.transformOrigin = "top left";
+
+      // Wait for webfonts to be ready, or the snapshot can use Times/Arial fallbacks.
+      if (document.fonts && document.fonts.ready) {
+        try { await document.fonts.ready; } catch {}
+      }
+
+      // Disable contenteditable so the title spans don't carry caret / focus state
+      // into the image; mark the poster with .exporting to neutralise hover tints.
+      const editableEls = Array.from(node.querySelectorAll('[contenteditable="true"]'));
+      editableEls.forEach(el => el.setAttribute('contenteditable', 'false'));
+      node.classList.add('exporting');
+      if (document.activeElement && node.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+
+      let dataUrl;
+      try {
+        dataUrl = await window.htmlToImage.toPng(node, {
+          pixelRatio: 4,
+          backgroundColor: "#fffdf8",
+          width: 960,
+          height: 800,
+          cacheBust: true,
+          style: { transform: "none" },
+        });
+      } finally {
+        node.classList.remove('exporting');
+        editableEls.forEach(el => el.setAttribute('contenteditable', 'true'));
+        node.style.transform = prevTransform;
+        node.style.transformOrigin = prevOrigin;
+        fitPoster();
+      }
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `meridian-poster-${new Date().toISOString().slice(0,10)}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+      btn.textContent = "✓ Saved";
+      toast("Poster downloaded as PNG.");
+      setTimeout(() => (btn.textContent = original), 1400);
+    } catch (err) {
+      console.error(err);
+      btn.textContent = "Failed — try PDF";
+      toast("PNG export failed. Try the PDF option instead.");
+      setTimeout(() => (btn.textContent = original), 1800);
+    }
+  }
+  function loadScript(src, integrity) {
+    return new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.crossOrigin = "anonymous";
+      s.referrerPolicy = "no-referrer";
+      if (integrity) s.integrity = integrity;
+      s.onload = res;
+      s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  // ── Cursor follower ──────────────────────────────────────────
+  (function() {
+    const cursor = $("#cursor");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(hover: none)").matches) return;
+    let x = 0, y = 0, tx = 0, ty = 0;
+    document.addEventListener("mousemove", (e) => { tx = e.clientX; ty = e.clientY; cursor.style.opacity = 1; });
+    document.addEventListener("mouseleave", () => { cursor.style.opacity = 0; });
+    const tick = () => {
+      x += (tx - x) * 0.22;
+      y += (ty - y) * 0.22;
+      cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(var(--s, 1))`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    document.addEventListener("mouseover", (e) => {
+      const isLarge = e.target.closest("button, .plate, .swatch, [data-link], [data-action]");
+      const isSmall = e.target.closest("textarea, input, [contenteditable]");
+      cursor.classList.toggle("large", !!isLarge);
+      cursor.classList.toggle("small", !!isSmall && !isLarge);
+    });
+    // Hide cursor while actively typing
+    document.addEventListener("focusin", (e) => {
+      if (e.target.matches("input, textarea, [contenteditable]")) {
+        cursor.style.opacity = 0;
+      }
+    });
+    document.addEventListener("focusout", (e) => {
+      if (e.target.matches("input, textarea, [contenteditable]")) {
+        cursor.style.opacity = 1;
+      }
+    });
+  })();
+
+  // ── Utils ────────────────────────────────────────────────────
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  // Split "Meridian Vol. I" or "Meridian Season I" into brand + sub.
+  // Used by both the import path and the Settings drawer input.
+  function splitTitleString(s) {
+    const text = String(s || "").trim();
+    if (!text) return { brand: "Meridian", sub: "Season I" };
+    const m = text.match(/^(.+?)[\s,·]+(Season|Vol\.?)\s+([IVXLCDM]+|\d+)\s*$/i);
+    if (m) return { brand: m[1].trim(), sub: `${m[2]} ${m[3]}`.trim() };
+    return { brand: text, sub: "Season I" };
+  }
+  // For values placed inside style="..." or other quoted HTML attributes.
+  // Restricts to a hex-color shape; falls back to a safe neutral.
+  function escapeAttr(s) {
+    const v = String(s);
+    if (/^#[0-9a-fA-F]{3,8}$/.test(v)) return v;
+    if (/^[a-z]+$/i.test(v) && v.length <= 24) return v.toLowerCase();
+    return "#888";
+  }
+  // Coerce an imported hue into one of our known hues, by exact hex match,
+  // else by name match, else fall back to HUES[0]. Prevents style/script
+  // injection via a crafted JSON archive.
+  function safeHue(h) {
+    if (h && typeof h === "object") {
+      if (typeof h.hex === "string") {
+        const byHex = HUES.find(x => x.hex.toLowerCase() === h.hex.toLowerCase());
+        if (byHex) return byHex;
+      }
+      if (typeof h.name === "string") {
+        const byName = HUES.find(x => x.name.toLowerCase() === h.name.toLowerCase());
+        if (byName) return byName;
+      }
+    }
+    return HUES[0];
+  }
+
+  // ── Editable poster title (brand + sub spans) ───────────────
+  (function wireEditableTitle() {
+    const brandEl = $("#poster-title-brand");
+    const subEl = $("#poster-title-sub");
+    if (!brandEl || !subEl) return;
+    function commit(which, el) {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+      if (which === "brand") state.posterTitleBrand = text || "Meridian";
+      else state.posterTitleSub = text || "Season I";
+      // Keep the legacy single-string field in sync so Settings, exports and
+      // imports all see the same title.
+      state.seasonTitle = `${state.posterTitleBrand} ${state.posterTitleSub}`.trim();
+      save();
+      // Refresh spec row + the Settings drawer field (if open).
+      const seasonSpec = $("#poster-spec-season");
+      if (seasonSpec) seasonSpec.textContent = `${state.posterTitleBrand} · ${state.posterTitleSub}`;
+      const setTitleInput = $("#set-title");
+      if (setTitleInput && document.activeElement !== setTitleInput) {
+        setTitleInput.value = state.seasonTitle;
+      }
+    }
+    function wire(el, which) {
+      el.addEventListener("input", () => {
+        // strip any HTML elements the user may have pasted in
+        if (el.querySelector("*")) el.textContent = el.textContent;
+      });
+      el.addEventListener("blur", () => commit(which, el));
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); el.blur(); }
+        if (e.key === "Escape") { e.preventDefault(); renderPoster(); el.blur(); }
+      });
+      el.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData("text") || "";
+        document.execCommand("insertText", false, text.replace(/\s+/g, " "));
+      });
+    }
+    wire(brandEl, "brand");
+    wire(subEl, "sub");
+  })();
+
+  // ── Boot ─────────────────────────────────────────────────────
+  renderRoute();
+  </script>
+</body>
+</html>
