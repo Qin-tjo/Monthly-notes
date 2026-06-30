@@ -1,6 +1,6 @@
 # Meridian
 
-A founder's monthly notebook. Twelve plates, one year. Private by default.
+A monthly notebook. Twelve plates, one year. Private by default.
 
 Once a month, sit with a single plate. Where you are, what changed, what you learned, what worries you, what excites you. Ten minutes. By plate twelve the season completes.
 
