@@ -1209,7 +1209,9 @@
   function currentRoute() {
     const h = location.hash.replace("#", "");
     if (PAGES.includes(h)) return h;
-    return Object.keys(state.entries).length ? "plate" : "begin";
+    // No hash = plain URL = always land on Begin. The nav handles deep-linking
+    // to the writing area for returning users.
+    return "begin";
   }
 
   function navigateTo(page, key) {
