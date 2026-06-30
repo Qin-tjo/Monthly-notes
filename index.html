@@ -586,17 +586,29 @@
       .logo { font-size: 11px; letter-spacing: 0.26em; }
       nav.app { gap: 14px; font-size: 11px; letter-spacing: 0.04em; }
       .settings-btn { margin-left: 4px; font-size: 16px; padding: 4px 4px; }
-      .begin-wrap { padding: 36px 18px 56px; gap: 28px; }
-      .begin-hero { font-size: 38px; }
-      .begin-lead { font-size: 16px; line-height: 1.55; }
-      .begin-cta { flex-direction: column; gap: 10px; }
-      .begin-cta .btn-primary, .begin-cta .btn-outline { width: 100%; padding: 14px 16px; }
-      /* Begin fanned trio doesn't fit at this width — collapse to a single
-         centred plate so the page doesn't look broken. */
-      .begin-preview { min-height: 360px; }
-      .begin-preview .plate { width: 220px; }
+      .begin-wrap { padding: 20px 18px 28px; gap: 0; }
+      .begin-tag { font-size: 9px; letter-spacing: 0.26em; }
+      .begin-hero { font-size: 30px; line-height: 0.95; margin: 12px 0 0; }
+      .begin-lead { font-size: 14.5px; line-height: 1.5; margin: 14px 0 0; max-width: none; }
+      .begin-cta { margin-top: 20px; flex-direction: column; gap: 8px; }
+      .begin-cta .btn-primary, .begin-cta .btn-outline {
+        width: 100%; padding: 13px 16px; font-size: 11px; letter-spacing: 0.22em;
+      }
+      .begin-note { margin-top: 14px; font-size: 11px; line-height: 1.5; max-width: none; }
+      /* Begin fanned trio doesn't fit — collapse to a single, smaller
+         centred plate sitting between the CTAs and the privacy line. */
+      .begin-preview { min-height: 240px; margin-top: 24px; }
+      .begin-preview .plate { width: 160px; padding: 14px; }
+      .begin-preview .plate-meta-top, .begin-preview .plate-meta-bot {
+        font-size: 7px; letter-spacing: 0.22em;
+      }
+      .begin-preview .plate-title { font-size: 36px; line-height: 1; }
+      .begin-preview .plate-teaser { font-size: 11px; margin-top: 6px; line-height: 1.35; }
       .begin-preview .plate.p1, .begin-preview .plate.p3 { display: none; }
-      .begin-preview .plate.p2 { transform: rotate(0) translate(0,0); position: relative; }
+      .begin-preview .plate.p2 {
+        transform: rotate(0) translate(0,0); position: relative;
+        box-shadow: 0 12px 26px rgba(0,0,0,0.10);
+      }
       /* Plate writing area */
       .plate-wrap { padding: 28px 16px 56px; }
       .entry-col { max-width: 100%; }
